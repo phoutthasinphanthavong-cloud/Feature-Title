@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ລະບົບສ້າງໃບຢັ້ງຢືນທີ່ຢູ່ - Version ປັບປຸງຮອງຮັບມືຖື</title>
+    <title>ລະບົບສ້າງໃບຢັ້ງຢືນທີ່ຢູ່ - Version ປັບປຸງໜ້າດຽວ</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
         body, .lao-font { font-family: 'Noto Sans Lao', sans-serif; }
         .dotted-line { border-bottom: 1px dotted #444; display: inline-block; min-width: 60px; padding: 0 4px; font-weight: bold; color: #1e3a8a; text-align: center; }
         
+        /* CSS ພິເສດສຳລັບການກຳນົດຂະໜາດໜ້າເຈ້ຍ A4 ໃຫ້ພໍດີໜ້າດຽວ */
         @page {
             size: A4 portrait;
-            margin: 0;
+            margin: 0; /* ປິດ margin ຂອງລະບົບເພື່ອບໍ່ໃຫ້ມັນຍູ້ເນື້ອໃນຕົກໜ້າ */
         }
 
         @media print {
@@ -20,10 +21,11 @@
             .no-print { display: none !important; }
             .print-area { padding: 0 !important; margin: 0 !important; box-shadow: none !important; background: white !important; }
             
+            /* ບັງຄັບໃຫ້ກອບເອກະສານມີຂະໜາດເປະຕາມມາດຕະຖານ A4 ແລະ ບໍ່ໃຫ້ມີການຍືດ */
             #document-a4 {
                 width: 210mm !important;
                 height: 297mm !important;
-                padding: 20mm 15mm 15mm 20mm !important;
+                padding: 20mm 15mm 15mm 20mm !important; /* ຕັ້ງຂອບເຈ້ຍດ້ານໃນ */
                 margin: 0 !important;
                 box-sizing: border-box !important;
                 page-break-inside: avoid !important;
@@ -33,22 +35,22 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 p-2 md:p-4">
+<body class="bg-gray-100 p-4">
 
-    <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-6">
         
-        <div class="bg-white p-4 md:p-6 rounded-xl shadow-md h-fit no-print">
-            <h2 class="text-lg md:text-xl font-bold mb-4 text-blue-600 border-b pb-2">✍️ ປ້ອນຂໍ້ມູນໃບຢັ້ງຢືນທີ່ຢູ່ (ຮອງຮັບມືຖື)</h2>
+        <div class="bg-white p-6 rounded-xl shadow-md h-fit no-print">
+            <h2 class="text-xl font-bold mb-4 text-blue-600 border-b pb-2">✍️ ປ້ອນຂໍ້ມູນໃບຢັ້ງຢືນທີ່ຢູ່ (ໜ້າດຽວ)</h2>
             
             <div class="space-y-4 text-sm">
-                <div class="grid grid-cols-3 gap-2 md:gap-3 bg-gray-50 p-3 rounded-lg">
-                    <div><label class="block font-medium">ແຂວງ:</label><input type="text" id="in_prov" oninput="update()" placeholder="ວຽງຈັນ" class="w-full p-1.5 border rounded mt-1 bg-white"></div>
-                    <div><label class="block font-medium">ເມືອງ:</label><input type="text" id="in_dist" oninput="update()" class="w-full p-1.5 border rounded mt-1 bg-white"></div>
-                    <div><label class="block font-medium">ບ້ານ:</label><input type="text" id="in_vill" oninput="update()" class="w-full p-1.5 border rounded mt-1 bg-white"></div>
+                <div class="grid grid-cols-3 gap-3 bg-gray-50 p-3 rounded-lg">
+                    <div><label class="block font-medium">ແຂວງ:</label><input type="text" id="in_prov" oninput="update()" placeholder="ວຽງຈັນ" class="w-full p-1.5 border rounded mt-1"></div>
+                    <div><label class="block font-medium">ເມືອງ:</label><input type="text" id="in_dist" oninput="update()" class="w-full p-1.5 border rounded mt-1"></div>
+                    <div><label class="block font-medium">ບ້ານ:</label><input type="text" id="in_vill" oninput="update()" class="w-full p-1.5 border rounded mt-1"></div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
-                    <div><label class="block font-medium">|ລກທີເອກະສານ:</label><input type="text" id="in_doc_no" oninput="update()" class="w-full p-1.5 border rounded mt-1"></div>
+                    <div><label class="block font-medium">ເລກທີເອກະສານ:</label><input type="text" id="in_doc_no" oninput="update()" class="w-full p-1.5 border rounded mt-1"></div>
                     <div><label class="block font-medium">ຊື່ນາຍບ້ານ:</label><input type="text" id="in_chief" oninput="update()" class="w-full p-1.5 border rounded mt-1"></div>
                 </div>
 
@@ -84,18 +86,21 @@
                 </div>
             </div>
             
-            <button onclick="exportPDF()" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-all text-base cursor-pointer">
+            <button onclick="exportPDF()" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-all text-base">
                 🖨️ ເປີດໜ້າຕ່າງບັນທຶກ PDF / ສັ່ງປິ່ນ
             </button>
         </div>
 
-        <div class="bg-gray-300 p-2 md:p-4 rounded-xl overflow-x-auto shadow-inner flex justify-start xl:justify-center print-area">
+        <div class="bg-gray-300 p-4 rounded-xl overflow-x-auto shadow-inner flex justify-center print-area">
             
-            <div id="document-a4" class="bg-white p-8 md:p-16 text-black shadow-2xl relative lao-font print-area min-w-[210mm]" style="width: 210mm; height: 297mm; box-sizing: border-box; font-size: 13pt; line-height: 2.1rem;">
+            <div id="document-a4" class="bg-white p-16 text-black shadow-2xl relative lao-font print-area" style="width: 210mm; height: 297mm; box-sizing: border-box; font-size: 13pt; line-height: 2.1rem;">
                 
                 <div class="text-center space-y-0.5 mb-4">
-                    <p class="font-bold text-base tracking-wide">ສາທาລະນະລັດ ປະชาທິປະໄຕ ປະชาชนລາວ</p>
-                    <p class="font-bold text-base tracking-wide">ສັນຕິພາບ ເອກະລາດ ປະชาທິປະໄຕ ເອກະພາບ ວັດທະນະຖາວອນ</p>
+                    <div class="flex justify-center mb-1.5">
+                        <img src="img/ChatGPT Image May 19, 2026, 03_57_58 AM.png" class="w-16 h-16 object-contain">
+                    </div>
+                    <p class="font-bold text-base tracking-wide">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</p>
+                    <p class="font-bold text-base tracking-wide">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນະຖາວອນ</p>
                 </div>
 
                 <div class="flex justify-between items-start mb-2" style="font-size: 11pt; line-height: 1.4rem;">
@@ -111,7 +116,7 @@
 
                 <div class="text-center my-3 space-y-0.5">
                     <h2 class="text-xl font-bold tracking-wide">ໃບຢັ້ງຢືນທີ່ຢູ່</h2>
-                    <p>ເລກທີ <span id="p_doc_no" class="font-bold">........</span> / <span class="p_year">2026</span></p>
+                    <p >ເລກທີ <span id="p_doc_no" class="font-bold">........</span> / <span class="p_year">2026</span></p>
                 </div>
 
                 <div class="text-justify">
@@ -121,8 +126,8 @@
                     
                     <br>ຂໍຢັ້ງຢືນວ່າ ທ້າວ ຫຼື ນາງ: <span id="p_name" class="dotted-line" style="min-width:140px"></span> 
                     ອາຍຸ: <span id="p_age" class="dotted-line" style="min-width:35px"></span> ປີ, 
-                    <br>ອາຊີບ: <span id="p_job" class="dotted-line" style="min-width:120px"></span>, 
-                    ສັນຊາດ: <span id="p_nat" class="dotted-line" style="min-width:80px"></span>.
+                    ອາຊີບ: <span id="p_job" class="dotted-line" style="min-width:70px"></span>, 
+                    ສັນຊາດ: <span id="p_nat" class="dotted-line" style="min-width:50px"></span>.
                     
                     <br>ປະຈຸບັນຢູ່ບ້ານ: <span id="p_vill2" class="dotted-line" style="min-width:130px"></span> 
                     ກຸ່ມ/ໜ່ວຍ: <span id="p_unit" class="dotted-line" style="min-width:130px"></span> 
@@ -131,8 +136,8 @@
                     <br>ໄດ້ຈັດເຂົ້າສຳມະໂນຄົວເລກທີ: <span id="p_fam_no" class="dotted-line" style="min-width:110px"></span> 
                     ລົງວັນທີ: <span id="p_fam_date" class="dotted-line" style="min-width:110px"></span> 
                     ເມືອງ: <span id="p_dist3" class="dotted-line" style="min-width:110px"></span>, 
-                    ແຂວງ: <span id="p_prov3" class="dotted-line" style="min-width:100px"></span>. 
-                    <br>ເປັນລູກຂອງ ທ້າວ: <span id="p_father" class="dotted-line" style="min-width:150px"></span> 
+                    <br>ແຂວງ: <span id="p_prov3" class="dotted-line" style="min-width:100px"></span>. 
+                    ເປັນລູກຂອງ ທ້າວ: <span id="p_father" class="dotted-line" style="min-width:150px"></span> 
                     ແລະ ນາງ: <span id="p_mother" class="dotted-line" style="min-width:150px"></span> 
                     <br>ທີ່ມີບ້ານ: <span id="p_vill3" class="dotted-line" style="min-width:110px"></span>, 
                     ເມືອງ: <span id="p_dist4" class="dotted-line" style="min-width:110px"></span>, 
@@ -142,7 +147,9 @@
                         ຜູ້ກ່ຽວຢູ່ໃນຄວາມຮັບຜິດຊອບຂອງພວກເຮົາ ແລະ ຢູ່ໃນການຈັດຕັ້ງຂອງພວກເຮົາຢ່າງແທ້ຈິງ.
                     </p>
                     <p class="pl-10 text-justify">
-                        ດັ່ງນັ້ນ, ຈຶ່ງອອກໃບຢັ້ງຢືນສະບັບນີ້ໃຫ້ຜູ້ກ່ຽວໄວ້ເປັນຫຼັກຖານ. ຖ້າຜູ້ກ່ຽວບໍ່ມີພຶດຕິກຳທີ່ຕໍ່ຕ້ານປະຊາຊົນ ອຳນາດການປົກຄອງຂອງລັດແລ້ວ. ຂໍໃຫ້ພະນັກງານທີ່ກ່ຽວຂ້ອງໄດ້ອຳນວຍຄວາມສະດວກຕາມທາງທີ່ຄວນດ້ວຍ.
+                        ດັ່ງນັ້ນ, ຈຶ່ງອອກໃບຢັ້ງຢືນສະບັບນີ້ໃຫ້ຜູ້ກ່ຽວໄວ້ເປັນຫຼັກຖານ. ຖ້າຜູ້ກ່ຽວບໍ່ມີພຶດຕິກຳທີ່ຕໍ່ຕ້ານປະຊາຊົນ  
+                      <p class="mt-2">
+                        ອຳນາດການປົກຄອງຂອງລັດແລ້ວ. ຂໍໃຫ້ພະນັກງານທີ່ກ່ຽວຂ້ອງໄດ້ອຳນວຍຄວາມສະດວກຕາມທາງທີ່ຄວນດ້ວຍ.
                     </p>
                     
                     <p class="pl-10 text-justify">
@@ -155,8 +162,7 @@
                     <div class="text-center w-64">
                         <p>ວັນທີ: <span id="p_current_date" class="font-bold">....../....../......</span></p>
                         <p class="font-bold mt-1">ນາຍບ້ານ</p>
-                        <div class="h-16"></div>
-                    </div>
+                        <div class="h-16"></div> </div>
                 </div>
 
             </div>
@@ -165,8 +171,9 @@
     </div>
 
     <script>
+        // ຕັ້ງຄ່າວັນທີ
         const now = new Date();
-        const formattedDate = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const formattedDate = now.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
         document.getElementById('p_current_date').innerText = formattedDate;
         
         const years = document.getElementsByClassName('p_year');
